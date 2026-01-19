@@ -44,6 +44,12 @@ function onDataReceived(text) {
     } else {
       console.log("error, you must add a name for the task!")
     }
+  }else if (firstCmd === "remove") {
+    if (secondCmd) {
+      remove(secondCmd);
+    } else {
+      remove()
+    }
   } else if (firstCmd === "list") {
     list();
   } else if (firstCmd === "help") {
@@ -124,6 +130,20 @@ function list() {
 
 function add(task) {
   tasks.push(task);
+}
+
+function remove(number) {
+  if (number > tasks.length) {
+    console.log("there is no tasks with that number!")
+    return;
+  }
+  if (number) {
+    tasks.splice(number - 1, 1);
+    console.log(`task number ${number} has been removed`)
+  } else {
+    tasks.pop()
+    console.log("the last task has been removed")
+  }
 }
 
 // The following line starts the application
