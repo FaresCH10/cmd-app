@@ -1,53 +1,47 @@
-
 /**
  * Starts the application
  * This is the function that is run when the app starts
- * 
+ *
  * It prints a welcome line, and then a line with "----",
  * then nothing.
- *  
+ *
  * @param  {string} name the name of the app
  * @returns {void}
  */
-function startApp(name){
+function startApp(name) {
   process.stdin.resume();
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('data', onDataReceived);
-  console.log(`Welcome to ${name}'s application!`)
-  console.log("--------------------")
+  process.stdin.setEncoding("utf8");
+  process.stdin.on("data", onDataReceived);
+  console.log(`Welcome to ${name}'s application!`);
+  console.log("--------------------");
 }
-
 
 /**
  * Decides what to do depending on the data that was received
  * This function receives the input sent by the user.
- * 
- * For example, if the user entered 
+ *
+ * For example, if the user entered
  * ```
  * node tasks.js batata
  * ```
- * 
+ *
  * The text received would be "batata"
  * This function  then directs to other functions
- * 
+ *
  * @param  {string} text data typed by the user
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'help\r\n') {
-    help()
-  }
-  else if (text === 'quit\r\n' || text === 'exit\r\n') {
+  if (text === "help\r\n") {
+    help();
+  } else if (text === "quit\r\n" || text === "exit\r\n") {
     quit();
-  }
-  else if(text === 'hello\r\n'){
+  } else if (text === "hello\r\n") {
     hello();
-  }
-  else{
+  } else {
     unknownCommand(text);
   }
 }
-
 
 /**
  * prints "unknown command"
@@ -56,31 +50,28 @@ function onDataReceived(text) {
  * @param  {string} c the text received
  * @returns {void}
  */
-function unknownCommand(c){
-  console.log('unknown command: "'+c.trim()+'"')
+function unknownCommand(c) {
+  console.log('unknown command: "' + c.trim() + '"');
 }
-
 
 /**
  * Says hello
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function hello() {
+  console.log("hello!");
 }
-
 
 /**
  * Exits the application
  *
  * @returns {void}
  */
-function quit(){
-  console.log('Quitting now, goodbye!')
+function quit() {
+  console.log("Quitting now, goodbye!");
   process.exit();
 }
-
 
 /**
  * Display all possible commands
@@ -88,8 +79,13 @@ function quit(){
  * @returns {void}
  */
 function help() {
-  console.log("All possible Commands:\n\\hello : it will return hello!\n\\quit : for exiting the application\n\\help : displaying all possible commands")
+  console.log(
+    "All possible Commands:\n" +
+      "\\hello : it will return hello!\n" +
+      "\\quit : for exiting the application\n" +
+      "\\help : displaying all possible commands"
+  );
 }
 
 // The following line starts the application
-startApp("Fares Chrayteh")
+startApp("Fares Chrayteh");
