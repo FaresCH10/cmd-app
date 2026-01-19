@@ -81,6 +81,12 @@ function quit(){
   process.exit();
 }
 
+
+/**
+ * Display all possible commands
+ *
+ * @returns {void}
+ */
 function help() {
   console.log("All possible Commands:\n\\hello : it will return hello!\n\\quit : for exiting the application\n\\help : displaying all possible commands")
 }
