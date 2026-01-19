@@ -34,7 +34,10 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\r\n' || text === 'exit\r\n') {
+  if (text === 'help\r\n') {
+    help()
+  }
+  else if (text === 'quit\r\n' || text === 'exit\r\n') {
     quit();
   }
   else if(text === 'hello\r\n'){
@@ -76,6 +79,10 @@ function hello(){
 function quit(){
   console.log('Quitting now, goodbye!')
   process.exit();
+}
+
+function help() {
+  console.log("All possible Commands:\n\\hello : it will return hello!\n\\quit : for exiting the application\n\\help : displaying all possible commands")
 }
 
 // The following line starts the application
