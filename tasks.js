@@ -33,20 +33,20 @@ function startApp(name) {
  */
 function onDataReceived(text) {
   const cleanText = text.replace(/\n/g, "").trim();
-  const splitedText = cleanText.split(" ")
+  const splitedText = cleanText.split(" ");
   const firstCmd = splitedText[0].toLowerCase();
-  const secondCmd = splitedText[1]
+  const secondCmd = splitedText[1];
 
   if (firstCmd === "help") {
     help();
   } else if (firstCmd === "quit" || firstCmd === "exit") {
     quit();
   } else if (firstCmd === "hello") {
-      if (secondCmd) {
-        hello(secondCmd)
-      } else {
-        hello()
-      }
+    if (secondCmd) {
+      hello(secondCmd);
+    } else {
+      hello();
+    }
   } else {
     unknownCommand(text);
   }
@@ -70,9 +70,9 @@ function unknownCommand(c) {
  */
 function hello(name = "") {
   if (name) {
-    console.log(`hello ${name}!`)
+    console.log(`hello ${name}!`);
   } else {
-    console.log("hello!")
+    console.log("hello!");
   }
 }
 
@@ -95,7 +95,8 @@ function help() {
   console.log(
     "All possible Commands:\n" +
       "\\hello : it will return hello!\n" +
-      "\\quit : for exiting the application\n" +
+      "\\hello x : x refers to any word u're, it will return hello + that word!\n" +
+      "\\quit or \\exit : for exiting the application\n" +
       "\\help : displaying all possible commands"
   );
 }
