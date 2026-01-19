@@ -34,10 +34,10 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n') {
+  if (text === 'quit\r\n') {
     quit();
   }
-  else if(text === 'hello\n'){
+  else if(text === 'hello\r\n'){
     hello();
   }
   else{
@@ -79,4 +79,4 @@ function quit(){
 }
 
 // The following line starts the application
-startApp("Jad Sarout")
+startApp("Fares Chrayteh")
