@@ -111,13 +111,22 @@ function help() {
     "All possible Commands:\n" +
       "\\hello : it will return hello!\n" +
       "\\hello x : x refers to any word u're, it will return hello + that word!\n" +
+      "\\list : list all the tasks\n" +
+      "\\add x : x refers to a task name, adding it to the list\n" +
+      "\\remove : remove the last task from the list\n" +
+      "\\remove x : x refers to the task number, remove it from the list\n" +
       "\\quit or \\exit : for exiting the application\n" +
       "\\help : displaying all possible commands"
   );
 }
 
-const tasks = ["pray", "programming", "eating", "studying"];
+const tasks = ["pray", "programming", "eating", "studying"]; // stores tasks here
 
+/**
+ * Display all tasks
+ *
+ * @returns {void}
+ */
 function list() {
   if (tasks.length > 0) {
     tasks.map((task, index) => {
@@ -128,10 +137,20 @@ function list() {
   }
 }
 
+/**
+ * add a task to the list 
+ *
+ * @returns {void}
+ */
 function add(task) {
   tasks.push(task);
 }
 
+/**
+ * remove a task from the list
+ *
+ * @returns {void}
+ */
 function remove(number) {
   if (number > tasks.length) {
     console.log("there is no tasks with that number!")
