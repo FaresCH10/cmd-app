@@ -32,12 +32,21 @@ function startApp(name) {
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === "help\r\n") {
+  const cleanText = text.replace(/\n/g, "").trim();
+  const splitedText = cleanText.split(" ")
+  const firstCmd = splitedText[0].toLowerCase();
+  const secondCmd = splitedText[1]
+
+  if (firstCmd === "help") {
     help();
-  } else if (text === "quit\r\n" || text === "exit\r\n") {
+  } else if (firstCmd === "quit" || firstCmd === "exit") {
     quit();
-  } else if (text === "hello\r\n") {
-    hello();
+  } else if (firstCmd === "hello") {
+      if (secondCmd) {
+        hello(secondCmd)
+      } else {
+        hello()
+      }
   } else {
     unknownCommand(text);
   }
@@ -59,8 +68,12 @@ function unknownCommand(c) {
  *
  * @returns {void}
  */
-function hello() {
-  console.log("hello!");
+function hello(name = "") {
+  if (name) {
+    console.log(`hello ${name}!`)
+  } else {
+    console.log("hello!")
+  }
 }
 
 /**
