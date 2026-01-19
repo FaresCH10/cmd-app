@@ -37,7 +37,14 @@ function onDataReceived(text) {
   const firstCmd = splitedText[0].toLowerCase();
   const secondCmd = splitedText[1];
 
-  if (firstCmd === "list") {
+  if (firstCmd === "add") {
+    if (secondCmd) {
+      add(secondCmd);
+      console.log("task added")
+    } else {
+      console.log("error, you must add a name for the task!")
+    }
+  } else if (firstCmd === "list") {
     list();
   } else if (firstCmd === "help") {
     help();
@@ -111,8 +118,12 @@ function list() {
       console.log(`${++index}- ${task}`);
     });
   } else {
-    console.log("no tasks yet")
+    console.log("no tasks yet");
   }
+}
+
+function add(task) {
+  tasks.push(task);
 }
 
 // The following line starts the application
