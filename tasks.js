@@ -37,7 +37,9 @@ function onDataReceived(text) {
   const firstCmd = splitedText[0].toLowerCase();
   const secondCmd = splitedText[1];
 
-  if (firstCmd === "help") {
+  if (firstCmd === "list") {
+    list();
+  } else if (firstCmd === "help") {
     help();
   } else if (firstCmd === "quit" || firstCmd === "exit") {
     quit();
@@ -99,6 +101,18 @@ function help() {
       "\\quit or \\exit : for exiting the application\n" +
       "\\help : displaying all possible commands"
   );
+}
+
+const tasks = ["pray", "programming", "eating", "studying"];
+
+function list() {
+  if (tasks.length > 0) {
+    tasks.map((task, index) => {
+      console.log(`${++index}- ${task}`);
+    });
+  } else {
+    console.log("no tasks yet")
+  }
 }
 
 // The following line starts the application
