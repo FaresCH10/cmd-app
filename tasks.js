@@ -1,3 +1,10 @@
+const tasks = [
+  { task: "pray", done: true },
+  { task: "programming", done: false },
+  { task: "eating", done: false },
+  { task: "studying", done: false },
+]; // stores tasks here
+
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -62,6 +69,18 @@ function onDataReceived(text) {
     } else {
       const restText = splitedText.splice(1, splitedText.length - 1);
       edit(undefined, restText);
+    }
+  } else if (firstCmd === "check") {
+    if (secondCmd) {
+      check(secondCmd);
+    } else {
+      console.log("No task selected, enter task number!");
+    }
+  } else if (firstCmd === "uncheck") {
+    if (secondCmd) {
+      uncheck(secondCmd);
+    } else {
+      console.log("No task selected, enter task number!");
     }
   } else if (firstCmd === "list") {
     list();
@@ -133,13 +152,6 @@ function help() {
   );
 }
 
-const tasks = [
-  { task: "pray", done: true },
-  { task: "programming", done: false },
-  { task: "eating", done: false },
-  { task: "studying", done: false },
-]; // stores tasks here
-
 /**
  * Display all tasks
  *
@@ -147,7 +159,7 @@ const tasks = [
  */
 function list() {
   if (tasks.length > 0) {
-    tasks.map(({task, done}, index) => {
+    tasks.map(({ task, done }, index) => {
       const check = done ? `[✓]` : `[ ]`;
       console.log(`${check} ${++index}- ${task}`);
     });
@@ -162,7 +174,7 @@ function list() {
  * @returns {void}
  */
 function add(task) {
-  tasks.push({task: task, done: false});
+  tasks.push({ task: task, done: false });
 }
 
 /**
@@ -186,11 +198,44 @@ function remove(number) {
 
 function edit(number = 0, task = []) {
   if (number) {
-    tasks[number - 1] = {task: task.join(" ")};
+    tasks[number - 1] = { task: task.join(" "), done: tasks[number - 1].done };
     console.log(`task ${number} has been edited!`);
   } else {
-    tasks[tasks.length - 1] = {task: task.join(" ")};
+    tasks[tasks.length - 1] = {
+      task: task.join(" "),
+      done: tasks[length - 1].done,
+    };
     console.log("the last task has been edited!");
+  }
+}
+
+function check(number) {
+  if (number > tasks.length) {
+    console.log("there is no tasks with that number!");
+    return;
+  }
+
+  let task = tasks[number - 1];
+  if (!task.done) {
+    tasks[number - 1] = { task: task.task, done: true };
+    console.log(`task ${number} checked!`);
+  } else {
+    console.log(`task ${number} is already checked!`);
+  }
+}
+
+function uncheck(number) {
+  if (number > tasks.length) {
+    console.log("there is no tasks with that number!");
+    return;
+  }
+
+  let task = tasks[number - 1];
+  if (task.done) {
+    tasks[number - 1] = { task: task.task, done: false };
+    console.log(`task ${number} unchecked!`);
+  } else {
+    console.log(`task ${number} is already unchecked!`);
   }
 }
 
