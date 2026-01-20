@@ -40,15 +40,28 @@ function onDataReceived(text) {
   if (firstCmd === "add") {
     if (secondCmd) {
       add(secondCmd);
-      console.log("task added")
+      console.log("task added");
     } else {
-      console.log("error, you must add a name for the task!")
+      console.log("error, you must add a name for the task!");
     }
-  }else if (firstCmd === "remove") {
+  } else if (firstCmd === "remove") {
     if (secondCmd) {
       remove(secondCmd);
     } else {
-      remove()
+      remove();
+    }
+  } else if (firstCmd === "edit") {
+    if (!secondCmd) {
+      console.log("you must add a new task name!");
+      return;
+    }
+
+    if (!isNaN(secondCmd)) {
+      const restText = splitedText.splice(2, splitedText.length - 2);
+      edit(secondCmd, restText);
+    } else {
+      const restText = splitedText.splice(1, splitedText.length - 1);
+      edit(undefined, restText);
     }
   } else if (firstCmd === "list") {
     list();
@@ -138,7 +151,7 @@ function list() {
 }
 
 /**
- * add a task to the list 
+ * add a task to the list
  *
  * @returns {void}
  */
@@ -153,15 +166,25 @@ function add(task) {
  */
 function remove(number) {
   if (number > tasks.length) {
-    console.log("there is no tasks with that number!")
+    console.log("there is no tasks with that number!");
     return;
   }
   if (number) {
     tasks.splice(number - 1, 1);
-    console.log(`task number ${number} has been removed`)
+    console.log(`task number ${number} has been removed`);
   } else {
-    tasks.pop()
-    console.log("the last task has been removed")
+    tasks.pop();
+    console.log("the last task has been removed");
+  }
+}
+
+function edit(number = 0, task = []) {
+  if (number) {
+    tasks[number - 1] = task.join(" ");
+    console.log(`task ${number} has been edited!`);
+  } else {
+    tasks[tasks.length - 1] = task.join(" ");
+    console.log("the last task has been edited!");
   }
 }
 
