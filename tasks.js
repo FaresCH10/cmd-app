@@ -142,11 +142,15 @@ function help() {
   console.log(
     "All possible Commands:\n" +
       "\\hello : it will return hello!\n" +
-      "\\hello x : x refers to any word u're, it will return hello + that word!\n" +
+      "\\hello x : x refers to any word, it will return hello + x!\n" +
       "\\list : list all the tasks\n" +
       "\\add x : x refers to a task name, adding it to the list\n" +
+      "\\check x : mark task x as done\n" +
+      "\\uncheck x : mark task x as undone\n" +
       "\\remove : remove the last task from the list\n" +
       "\\remove x : x refers to the task number, remove it from the list\n" +
+      "\\edit new text : edit last task with new text\n" +
+      "\\edit x new text : edit task x with new text\n" +
       "\\quit or \\exit : for exiting the application\n" +
       "\\help : displaying all possible commands"
   );
