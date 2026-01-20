@@ -133,7 +133,12 @@ function help() {
   );
 }
 
-const tasks = ["pray", "programming", "eating", "studying"]; // stores tasks here
+const tasks = [
+  { task: "pray", done: true },
+  { task: "programming", done: false },
+  { task: "eating", done: false },
+  { task: "studying", done: false },
+]; // stores tasks here
 
 /**
  * Display all tasks
@@ -142,8 +147,9 @@ const tasks = ["pray", "programming", "eating", "studying"]; // stores tasks her
  */
 function list() {
   if (tasks.length > 0) {
-    tasks.map((task, index) => {
-      console.log(`${++index}- ${task}`);
+    tasks.map(({task, done}, index) => {
+      const check = done ? `[✓]` : `[ ]`;
+      console.log(`${check} ${++index}- ${task}`);
     });
   } else {
     console.log("no tasks yet");
@@ -156,7 +162,7 @@ function list() {
  * @returns {void}
  */
 function add(task) {
-  tasks.push(task);
+  tasks.push({task: task, done: false});
 }
 
 /**
@@ -180,10 +186,10 @@ function remove(number) {
 
 function edit(number = 0, task = []) {
   if (number) {
-    tasks[number - 1] = task.join(" ");
+    tasks[number - 1] = {task: task.join(" ")};
     console.log(`task ${number} has been edited!`);
   } else {
-    tasks[tasks.length - 1] = task.join(" ");
+    tasks[tasks.length - 1] = {task: task.join(" ")};
     console.log("the last task has been edited!");
   }
 }
