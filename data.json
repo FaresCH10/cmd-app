@@ -1,0 +1,22 @@
+[
+  {
+    "task": "pray",
+    "done": true
+  },
+  {
+    "task": "programming",
+    "done": false
+  },
+  {
+    "task": "eating",
+    "done": false
+  },
+  {
+    "task": "studying",
+    "done": true
+  },
+  {
+    "task": "new task",
+    "done": false
+  }
+]

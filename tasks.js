@@ -1,7 +1,20 @@
 const fs = require("fs");
 const path = require("path");
 
-const dataFile = path.join(__dirname, "./database.json");
+let dataFile = path.join(__dirname, "./database.json");
+
+if (process.argv.length === 3) {
+  const listFile = process.argv[2];
+  // if (listFile.endsWith(".json")) {
+  //   dataFile = path.join(__dirname, listFile);
+  // } else {
+  //   dataFile = path.join(__dirname, `${listFile}.json`);
+  // }
+  dataFile = path.join(
+    __dirname,
+    listFile.endsWith(".json") ? listFile : `${listFile}.json`
+  );
+}
 
 let tasks = []; // stores tasks here
 
@@ -219,7 +232,7 @@ function list() {
  */
 function add(task) {
   tasks.push({ task: task, done: false });
-  saveTasks()
+  saveTasks();
 }
 
 /**
@@ -239,7 +252,7 @@ function remove(number) {
     tasks.pop();
     console.log("the last task has been removed");
   }
-  saveTasks()
+  saveTasks();
 }
 
 function edit(number = 0, task = []) {
@@ -251,7 +264,7 @@ function edit(number = 0, task = []) {
       task: task.join(" "),
       done: tasks[tasks.length - 1].done,
     };
-    saveTasks()
+    saveTasks();
     console.log("the last task has been edited!");
   }
 }
@@ -269,7 +282,7 @@ function check(number) {
   } else {
     console.log(`task ${number} is already checked!`);
   }
-  saveTasks()
+  saveTasks();
 }
 
 function uncheck(number) {
@@ -285,7 +298,7 @@ function uncheck(number) {
   } else {
     console.log(`task ${number} is already unchecked!`);
   }
-  saveTasks()
+  saveTasks();
 }
 
 // The following line starts the application
