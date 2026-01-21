@@ -1,0 +1,18 @@
+[
+  {
+    "task": "new task",
+    "done": true
+  },
+  {
+    "task": "praying",
+    "done": true
+  },
+  {
+    "task": "studying",
+    "done": false
+  },
+  {
+    "task": "fixing",
+    "done": false
+  }
+]

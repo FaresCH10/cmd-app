@@ -1,9 +1,38 @@
-const tasks = [
-  { task: "pray", done: true },
-  { task: "programming", done: false },
-  { task: "eating", done: false },
-  { task: "studying", done: false },
-]; // stores tasks here
+const fs = require("fs");
+const path = require("path");
+
+const dataFile = path.join(__dirname, "./database.json");
+
+let tasks = []; // stores tasks here
+
+function loadTasks() {
+  try {
+    if (fs.existsSync(dataFile)) {
+      const data = fs.readFileSync(dataFile, "utf-8");
+      tasks = JSON.parse(data);
+    } else {
+      tasks = [
+        { task: "pray", done: true },
+        { task: "programming", done: false },
+        { task: "eating", done: false },
+        { task: "studying", done: true },
+      ];
+      saveTasks();
+    }
+  } catch (error) {
+    console.log("Error loading database:", error.message);
+    tasks = [];
+  }
+}
+
+function saveTasks() {
+  try {
+    const data = JSON.stringify(tasks, null, 2);
+    fs.writeFileSync(dataFile, data, "utf8");
+  } catch (error) {
+    console.log("Error saving database:", error.message);
+  }
+}
 
 /**
  * Starts the application
@@ -16,11 +45,22 @@ const tasks = [
  * @returns {void}
  */
 function startApp(name) {
+  loadTasks();
+
   process.stdin.resume();
   process.stdin.setEncoding("utf8");
   process.stdin.on("data", onDataReceived);
   console.log(`Welcome to ${name}'s application!`);
   console.log("--------------------");
+
+  process.on("exit", () => {
+    saveTasks();
+  });
+
+  process.on("SIGINT", () => {
+    saveTasks();
+    process.exit();
+  });
 }
 
 /**
@@ -46,7 +86,7 @@ function onDataReceived(text) {
 
   if (firstCmd === "add") {
     if (secondCmd) {
-      add(secondCmd);
+      add(splitedText.slice(1, splitedText.length).join(" "));
       console.log("task added");
     } else {
       console.log("error, you must add a name for the task!");
@@ -179,6 +219,7 @@ function list() {
  */
 function add(task) {
   tasks.push({ task: task, done: false });
+  saveTasks()
 }
 
 /**
@@ -198,6 +239,7 @@ function remove(number) {
     tasks.pop();
     console.log("the last task has been removed");
   }
+  saveTasks()
 }
 
 function edit(number = 0, task = []) {
@@ -207,8 +249,9 @@ function edit(number = 0, task = []) {
   } else {
     tasks[tasks.length - 1] = {
       task: task.join(" "),
-      done: tasks[length - 1].done,
+      done: tasks[tasks.length - 1].done,
     };
+    saveTasks()
     console.log("the last task has been edited!");
   }
 }
@@ -226,6 +269,7 @@ function check(number) {
   } else {
     console.log(`task ${number} is already checked!`);
   }
+  saveTasks()
 }
 
 function uncheck(number) {
@@ -241,6 +285,7 @@ function uncheck(number) {
   } else {
     console.log(`task ${number} is already unchecked!`);
   }
+  saveTasks()
 }
 
 // The following line starts the application
